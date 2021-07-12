@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Radio Group Example</title>
+
+    <style>
+        /* Dashed red border */
+        hr.new2 {
+            border-top: 1px dashed darkgrey;
+        }
+
+        #result {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin: 0 0.5em;
+        }
+
+        #which-button {
+            margin-top: 1em;
+        }
+
+        .myDiv {
+            width: 50px;
+            height: 30px;
+            margin: 5px;
+            float: left;
+            background: green;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+</head>
+<body>
+<!--     Listener for radio values    -->
+<div id="div-which-button">
+    <span>What is your answer?</span>
+    <label>
+        <input type="radio" name="some-radio-group" value="yes" checked="checked"/> Yes
+    </label>
+    <label>
+        <input type="radio" name="some-radio-group" value="no"/> No
+    </label>
+    <label>
+        <input type="radio" name="some-radio-group" value="maybe"/> Maybe
+    </label>
+    <label>
+        <input type="radio" name="some-radio-group" value="I dunno"/> I dunno
+    </label>
+    <p class="which-text">The radio element with value <span id="result"></span> is checked.</p>
+    <button class="box-small" id="which-button">Click me!</button>
+</div>
+
+<hr class="new2">
+<!--     Toggle FX     -->
+<div>
+    <input type="button" name="ToggleFX" value="Run" style="color: darkgreen; border-width: 0;  margin: 3px;
+    padding: 10px;">
+    <button class="footer">Toggle fx</button>
+    <div id="toggleDiv" class="myDiv"></div>
+</div>
+
+<hr class="new2">
+<!--     Removing trailing    -->
+<input id="rmTrailing" type="text" value="some text">
+<p class="rmTrailing"></p>
+
+<hr class="new2">
+<!--     Arrays      -->
+<div id="displayTable">
+    <input id="tableAndElements" class="btnTest" type="button" onClick="" value="Display">
+    <table id="specialTable">
+        <tr>
+            <td>one</td>
+            <td>two</td>
+            <td>three</td>
+            <td>four</td>
+            <td><button class="btnTest">Delete</button></td>
+        </tr>
+    </table>
+</div>
+
+<hr class="new2">
+<div id="new2">
+    <tr>
+        <p id="p1">Test</p>
+        <p id="p2">TestArrays</p>
+    </tr>
+</div>
+
+
+<script>
+    <!--     Arrays      -->
+    $(".btnTest").click(function (evt) {
+        var array_num = [98, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+        // x = $.isArray(array_num);
+        // console.log(x);
+        let k = 0;
+        for (k = 0; k < array_num.length; k++) {
+            k = k + 1;
+            var tag = document.createElement("tr");
+            for (let elem = 0; elem < k; elem++) {
+                // console.log(array_num[elem]);
+                var text = document.createTextNode(array_num[elem]);
+            }
+            //
+            //
+            tag.appendChild(text);
+            var element2 = document.getElementById("new2");
+            element2.appendChild(tag);
+        }
+        var cell2 = $(evt.target).parent().parent("tr").find("td:nth-child(2)").text();
+        var cell3 = $(evt.target).parent().parent("tr").find("td:nth-child(3)").text();
+        console.log("cell 2 : "+cell2+", cell 3 : "+cell3);
+    });
+
+    <!--     Removing trailing    -->
+    $('#rmTrailing')
+        .keyup(function () {
+            var value = $(this).val().trim();
+
+            $("p.rmTrailing").text(value);
+        })
+        .keyup();
+
+    $('#getText')
+        .keyup(function () {
+            var value = $(this).val();
+            $("p.which-text").text(value);
+        })
+        .keyup();
+
+    <!--     Toggle FX     -->
+    var toggleFx = function () {
+        $.fx.off = !$.fx.off;
+    };
+    toggleFx();
+
+    $("button").click(toggleFx);
+    $('input:button[name="ToggleFX"]').click(function () {
+        $('#toggleDiv').toggle("slow");
+    });
+
+    <!--     Listener for radio values    -->
+    jQuery('#which-button').click(function () {
+        var checkedValue = jQuery('input:radio[name="some-radio-group"]:checked').val();
+        jQuery('#result').text(checkedValue);
+    }).click();
+</script>
+</body>
+</html>
